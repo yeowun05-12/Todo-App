@@ -12,13 +12,36 @@ function App() {
     { id: 2, content: '맛없어' },
   ]);
 
-  const [inputValue, setInputValue] = useState('');
   return (
     <>
       <TodoList todoList={todoList} setTodoList={setTodoList} />
+      <hr />
+      <TodoInput todoList={todoList} setTodoList={setTodoList} />
+    </>
+  );
+}
 
-      <input />
-      <button>추가하기</button>
+//리스트를 추가하기 
+function TodoInput({ todoList, setTodoList }) {
+  const [inputValue, setInputValue] = useState('');
+
+  return (
+    <>
+      <input
+        placeholder='할 일을 입력하세요'
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+      <button
+        onClick={() => {
+          const newTodo = { id: Number(new Date()), content: inputValue };
+          const newTodoList = [...todoList, newTodo];
+          setTodoList(newTodoList);
+          setInputValue('');
+        }}
+      >
+        추가하기
+      </button>
     </>
   );
 }
