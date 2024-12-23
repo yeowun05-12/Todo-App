@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .logo {
@@ -37,6 +38,32 @@
   padding: 2em;
 }
 
-.read-the-docs {
-  color: #888;
+.reBtn {
+  background-color: rgb(70, 194, 155);
+  color: white;
+  margin-left: 40px;
+}
+
+.delBtn {
+  background-color: rgb(255, 105, 105);
+  color: white;
+  margin-left: 10px;
+}
+
+.addBtn {
+  background-color: rgb(51, 51, 51);
+  color: white;
+  margin-left: 10px;
+}
+
+.reInput {
+  display: none;
+  z-index: 1;
+  position: relative;
+  top: -3px;
+  right: 60px;
+}
+
+.reInput:focus {
+  filter: drop-shadow(0 0 0.5em #9ea3ffaa);
 }

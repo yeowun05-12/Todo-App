@@ -14,6 +14,7 @@ function App() {
 
   return (
     <>
+      <h1>TO DO LIST</h1>
       <TodoList todoList={todoList} setTodoList={setTodoList} />
       <hr />
       <TodoInput todoList={todoList} setTodoList={setTodoList} />
@@ -21,18 +22,20 @@ function App() {
   );
 }
 
-//리스트를 추가하기 
+//리스트를 추가하기 & 리스트 삭제하기
 function TodoInput({ todoList, setTodoList }) {
   const [inputValue, setInputValue] = useState('');
 
   return (
     <>
       <input
+        className='originInput'
         placeholder='할 일을 입력하세요'
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
       />
       <button
+        className='addBtn'
         onClick={() => {
           const newTodo = { id: Number(new Date()), content: inputValue };
           const newTodoList = [...todoList, newTodo];
@@ -59,6 +62,48 @@ function TodoList({ todoList, setTodoList }) {
 }
 
 function Todo({ todo, setTodoList }) {
-  return <li>{todo.content}</li>;
+  const [inputValue, setInputValue] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+  console.log(todo.content, inputValue);
+  return (
+    <li>
+      {todo.content}
+      <input
+        className='reInput'
+        placeholder='할 일을 입력하세요'
+        style={{ display: isEditing ? 'block' : 'none' }}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+      <button
+        className='reBtn'
+        onClick={() => {
+          if (isEditing) {
+            setTodoList((prev) => {
+              return prev.map((el) =>
+                el.id === todo.id ? { ...el, content: inputValue } : el
+              );
+            });
+          }
+          setIsEditing((prev) => !prev);
+        }}
+      >
+        {isEditing ? '저장' : '수정'}
+      </button>
+      <button
+        className='delBtn'
+        onClick={() => {
+          setTodoList((prev) => {
+            return prev.filter((el) => el.id !== todo.id);
+          });
+        }}
+      >
+        삭제
+      </button>
+      <label>
+        <input className="Complete" type='checkbox' /> 완료
+      </label>
+    </li>
+  );
 }
 export default App;
